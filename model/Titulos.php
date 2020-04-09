@@ -62,7 +62,7 @@ class Titulos {
     }
 
     function setAction() {
-        if ($this->getVlrTitulo() < (VALOR_PERMITIDO_BOLETO - 0.01)) {
+        if ($this->getVlrTitulo() <= VALOR_PERMITIDO_BOLETO) {
             $this->action = 'Ligar para finaceiro ' . FONE_COBRANCA;
         } else if (!$this->isFlgPermiteEmissaoBoleto()) {
             $this->action = 'Opção de boleto nao permitida ' . FONE_COBRANCA;
@@ -112,15 +112,11 @@ class Titulos {
         return $this->fileName;
     }
 
-    /**
-     * 1-1-4188299   -10971701-2-599-1  -2
-     * 1-1-1007944899-81767799-1-299-104-1
-     */
     function setBoleto() {
         if ($this->isFlgPermiteEmissaoBoleto() &&
-                $this->isVisibile()) {
-            $id = '/';
-            $id .= PHOENIX_EMPRESSA . '-'; // empressa cadastrada no phoenix(sempre 1)
+                $this->isVisibile() &&
+                $this->getVlrTitulo() >= VALOR_PERMITIDO_BOLETO) {
+            $id = '/' . PHOENIX_EMPRESSA . '-'; // empressa cadastrada no phoenix(sempre 1)
             $id .= $this->getFilial() . '-'; // filial do titulo (retornado no primero metodo)
             $id .= $this->getCliente() . '-'; // codigo do cliente (retornado no primero metodo)
             $id .= $this->getNrTitulo() . '-'; // nrTitulo (retornado no primero metodo)
@@ -128,15 +124,12 @@ class Titulos {
             $id .= PHOENIX_BOLETO . '-'; // configuracao do boleto cadastrado no phoenix 
             $id .= CODIGO_BANCO . '-'; // codigo do banco que ira efeturar a impressao do boleto
             $id .= $this->getFilial(); //2 filial do emissor do boleto
-
             $result = Api::getJson(URL_PDF_BOLETO . $id);
             if (isset($result)) {
                 $boleto = new boleto($result);
                 $this->boleto = $boleto;
                 $this->fileName = $boleto->getFileName();
             }
-        } else {
-            $this->boleto = null;
         }
     }
 

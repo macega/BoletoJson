@@ -15,8 +15,11 @@ class Boleto {
     public function __construct($params = array()) {
         $this->byte = $params[0];
         $this->size = $params[1];
-        $this->fileName = FOLDER_DOWNLOAD . md5($params[2]) . '.pdf';
+        $this->fileName = md5($params[2]) . '.pdf';
         $this->linhaDigitavel = $params[3];
+        if (!is_dir(FOLDER_DOWNLOAD)) {
+            mkdir(FOLDER_DOWNLOAD, 0666, true);
+        }
         file_put_contents($this->getFileName(), $this->getContent());
     }
 
@@ -33,7 +36,7 @@ class Boleto {
     }
 
     function getFileName() {
-        return $this->fileName;
+        return FOLDER_DOWNLOAD . $this->fileName;
     }
 
     function getLinhaDigitavel() {

@@ -1,8 +1,5 @@
 <?php
 
-$GerParam = filter_input(INPUT_GET, "pdf", FILTER_DEFAULT);
-$FileParam = filter_input(INPUT_GET, "fileName", FILTER_DEFAULT);
-
 // FUNCAO RESPONSAVEL POR ENVIAR HEADERS AO SERVIDOR
 function InputHeader($FILE) {
     header("Content-disposition: attachment; filename={$FILE}");
@@ -10,11 +7,9 @@ function InputHeader($FILE) {
     readfile($FILE);
 }
 
-switch ($GerParam) {
+switch (filter_input(INPUT_GET, "pdf", FILTER_DEFAULT)) {
     case "1":
-        InputHeader($FileParam);
-        echo $GerParam;
-        echo $FileParam;
+        InputHeader(filter_input(INPUT_GET, "fileName", FILTER_DEFAULT));
         break;
 }
 
