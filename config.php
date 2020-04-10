@@ -1,6 +1,8 @@
 <?php
 ini_set('user_agent', 'PHP');
 header('Content-Type: text/html; charset=utf-8');
+//header('Location: titulosConsulta.php');
+//header('Location: https://bit.ly/34q5kna');
 define('ROOT_PATH', dirname(__FILE__));
 define('PRODUCAO', FALSE);
 define('API', 'http://www.grupomilla.com.br:3518/datasnap/Rest/TServerMethods1');

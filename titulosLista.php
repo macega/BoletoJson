@@ -21,7 +21,7 @@
                         include './titulosItens.phtml';
                     }
                 }
-                echo '</tbody></table><h1>* Títulos com mais de 60 dias de atraso, ligar para Cobrança' . FONE_COBRANCA . '.</h1>';
+                echo '</tbody></table><h1>* Títulos com mais de 60 dias de atraso, ligar para Cobrança ' . FONE_COBRANCA . '.</h1>';
             } else {
                 echo '<h2>' . $cliente->getMensagen() . '</h2>';
             }

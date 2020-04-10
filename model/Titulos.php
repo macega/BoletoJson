@@ -68,11 +68,14 @@ class Titulos {
 
     function setAction() {
         if ($this->getVlrTitulo() <= VALOR_PERMITIDO_BOLETO) {
-            $this->action = 'Ligar para finaceiro ' . FONE_COBRANCA;
+            $this->action = 'Ligar para cobrança ' . FONE_COBRANCA;
         } else if (!$this->isFlgPermiteEmissaoBoleto()) {
             $this->action = 'Opção de boleto nao permitida ' . FONE_COBRANCA;
+        } else if (empty ($this->getFileName())) {
+            $this->action = 'Não foi possível gerar o boleto';
         } else {
-            $this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
+            $this->action = '<input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/>';
+            //$this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
         }
     }
 

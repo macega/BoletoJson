@@ -24,6 +24,9 @@
     .content {
         width: 95%;
     }
+    .titulosTable tbody tr td {
+        padding: 10px;
+    }
     .titulosTable tbody tr td:nth-child(1) {
         width: 15%;
     }
@@ -71,15 +74,25 @@
     background: #7f0000;
     font-weight: bold;
     color: #fff;
+    font-family: Arial;
 }
 
 .titulosTable tbody tr:nth-child(2n) {
     background: #ccc;
 }
 
-.titulosTable th,
-.titulosTable td {
-    align-content: center
+.titulosTable th{
+    align-content: center;
+    font-family: Arial;
+    font-size: 13px;
+    padding: 5px;
+}
+
+.titulosTable td{
+    align-content: center;
+    font-family: Arial;
+    color: #708090;
+    font-size: 13px;
 }
 
 .firstLI {
@@ -137,6 +150,46 @@
     -webkit-border-radius: 10px;
 }
 
+.buttonConsulta {
+    display: block;
+    background: #b11925;
+    width: 314px;
+    padding: 12px;
+    cursor: pointer;
+    color: #fff;
+    border: 0px;
+    margin: auto;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.buttonConsulta:hover {
+    background: #aaa
+}
+
+.buttonDownload{
+    padding: 3px;
+    background: #b71c1c;
+    color: white;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow:none;
+}
+
+.buttonDownload:hover {
+    padding: 3px;
+    background: #f05545;
+    color: whitesmoke;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow:none;
+}
+
 body {
     background: #b11925;
 }
@@ -170,25 +223,15 @@ input[type="text"]:focus {
     border: 2px solid #b11925
 }
 
-input[type="submit"] {
-    display: block;
-    background: #b11925;
-    width: 314px;
-    padding: 12px;
-    cursor: pointer;
-    color: #fff;
-    border: 0px;
-    margin: auto;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    font-size: 17px;
-    transition: all 0.3s ease;
-}
+/*input[type="submit"] {
 
-input[type="submit"]:hover {
+}*/
+
+/*input[type="submit"]:hover {
     background: #aaa
-}
+}*/
+
+
 
 h1 {
     text-align: center;
