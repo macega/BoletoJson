@@ -16,7 +16,6 @@ class InvalidCpfException extends \InvalidArgumentException implements Exception
     public function __toString() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
-
 }
 
 /**
@@ -28,8 +27,8 @@ class Cliente {
 
     var $cpf;
     var $titulos;
-    var $nomeCliente;
     protected $mensagen;
+    protected $nomeCliente;
 
     /**
      * Cpf constructor.
@@ -41,6 +40,22 @@ class Cliente {
             throw new InvalidCpfException('CPF informado inválido', 788);
         }
         $this->setTitulos();
+        if (empty($this->getTitulos()) || empty(current($this->getTitulos())->getNome_Cliente())) {
+            $this->setNomeCliente('');
+            $this->setMensagen('Não foram encontrados registros para o cpf informado.');
+        } else {
+            $this->setNomeCliente(current($this->getTitulos())->getNome_Cliente());
+        }
+    }
+    
+    function setMensagen($mensagen) {
+        $this->mensagen = $mensagen;
+    }
+
+    function setNomeCliente($nomeCliente) {
+        if (!empty($nomeCliente)) {
+            $this->nomeCliente = $nomeCliente;
+        } 
     }
 
     function getNomeCliente() {
@@ -66,18 +81,15 @@ class Cliente {
     function setTitulos() {
         try {
             $result = Api::getJson(URL_CONSULTAR_TITULOS_CPF . '/' . $this->getCpf());
-            if ($result == '[]' | !isset($result)) {
-                $this->mensagen = 'Não foram encontrados registros para o cpf informado.';
-            } else {
-                $this->nomeCliente = $result[0]["Nome_Cliente"];
+            if (isset($result) && !empty($result)) {
                 foreach ($result as $value) {
                     $this->titulos[] = new Titulos($value);
                 }
             }
         } catch (apiTimeOutException $e) {
-            $this->mensagen = $e;
+            $this->setMensagen($e);
         } catch (Exception $e) {
-            $this->mensagen = $e;
+            $this->setMensagen($e);
         }
     }
 

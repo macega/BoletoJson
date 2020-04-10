@@ -5,7 +5,8 @@
         require_once ROOT_PATH . '\model\Cliente.php';
         try {
             $cliente = new Cliente(filter_input(INPUT_GET, "cpf", FILTER_DEFAULT));
-            if (isset($cliente->titulos)) {
+            if (isset($cliente->titulos) &&
+                    !empty($cliente->getNomeCliente())) {
                 echo '<h2>Cliente: ' . $cliente->getNomeCliente() . '</h2>';
                 include './table2.phtml';
                 foreach ($cliente->titulos as $titulo) {

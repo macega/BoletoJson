@@ -20,7 +20,7 @@ class Boleto {
         if (!is_dir(FOLDER_DOWNLOAD)) {
             mkdir(FOLDER_DOWNLOAD, 0666, true);
         }
-        file_put_contents($this->getFileName(), $this->getContent());
+        file_put_contents(FOLDER_DOWNLOAD . $this->getFileName(), $this->getContent());
     }
 
     function getContent() {
@@ -36,7 +36,7 @@ class Boleto {
     }
 
     function getFileName() {
-        return FOLDER_DOWNLOAD . $this->fileName;
+        return $this->fileName;
     }
 
     function getLinhaDigitavel() {

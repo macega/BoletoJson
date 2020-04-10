@@ -47,14 +47,19 @@ class Titulos {
     protected $action;
 
     public function __construct($params = array()) {
-        foreach ($params as $key => $value) {
-            if (method_exists($this, 'set' . $key)) {
-                $this->{'set' . $key}($value);
+        try {
+            if (!empty($params) && is_array($params)) {
+                foreach ($params as $key => $value) {
+                    if (method_exists($this, 'set' . $key)) {
+                        $this->{'set' . $key}($value);
+                    }
+                }
+                $this->setVisibile();
+                $this->setBoleto();
+                $this->setAction();
             }
+        } catch (Exception $e) {
         }
-        $this->setVisibile();
-        $this->setBoleto();
-        $this->setAction();
     }
 
     function getAction() {
