@@ -45,11 +45,13 @@
     }
     
     .titulosTable tfoot tr th:nth-child(1) {
+        padding-right: 3px;
         text-align: right;
         text-decoration: none;
     }
     
     .titulosTable tfoot tr td:nth-child(2) {
+        padding-right: 3px;
         text-align: right;
         text-decoration: none;
     }
