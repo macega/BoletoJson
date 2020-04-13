@@ -32,27 +32,16 @@ class apiException extends \Exception implements ExceptionInterface {
 
 }
 
-/**
- * Description of Api
- *
- * @author julia
- */
 class Api {
 
     public static function getJson($url) {
-//        // faz a requisicao
-//        $json_data = file_get_contents($url);
-//        if (false != $json_data) {
         $client = curl_init($url);
-
         curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($client, CURLOPT_TIMEOUT, 12);
         curl_setopt($client, CURLOPT_CONNECTTIMEOUT, 77);
         $response = curl_exec($client);
-        
         if ($response === false) {
             $info = curl_getinfo($client);
-
             if ($info['http_code'] === 0) {
                 curl_close($client);
                 throw new apiTimeOutException('o servidor encontrou um erro. tente novamente mais tarde', 799);
@@ -60,9 +49,6 @@ class Api {
         }
         curl_close($client);
         return json_decode($response, true);
-//        } else {
-//            throw new apiException('servidor retornou um erro', 798);
-//        }
     }
 
 }

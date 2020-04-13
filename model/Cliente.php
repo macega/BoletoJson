@@ -18,11 +18,6 @@ class InvalidCpfException extends \InvalidArgumentException implements Exception
     }
 }
 
-/**
- * Description of Cliente
- *
- * @author julia
- */
 class Cliente {
 
     var $cpf;

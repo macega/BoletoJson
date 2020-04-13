@@ -24,9 +24,6 @@
     .content {
         width: 95%;
     }
-    .titulosTable tbody tr td {
-        padding: 10px;
-    }
     .titulosTable tbody tr td:nth-child(1) {
         width: 15%;
     }
@@ -34,13 +31,14 @@
         width: 10%;
     }
     .titulosTable tbody tr td:nth-child(3) {
-        width: 20%;
+        width: 15%;
+        text-align: right;
     }
     .titulosTable tbody tr td:nth-child(4) {
         width: 15%;
     }
     .titulosTable tbody tr td:nth-child(5) {
-        width: 40%;
+        width: 45%;
     }
     .headerTable thead tr td:nth-child(1) {
         width: 50%;
@@ -88,7 +86,8 @@
     padding: 5px;
 }
 
-.titulosTable td{
+.titulosTable tbody tr td{
+    padding: 3px;
     align-content: center;
     font-family: Arial;
     color: #708090;
@@ -170,24 +169,18 @@
     background: #aaa
 }
 
-.buttonDownload{
-    padding: 3px;
+.buttonDownload {
     background: #b71c1c;
     color: white;
     border: 1px solid #eee;
     border-radius: 20px;
-    box-shadow: 5px 5px 5px #eee;
+/*    box-shadow: 1px 1px 1px #ff5f52;*/
     text-shadow:none;
 }
 
 .buttonDownload:hover {
-    padding: 3px;
     background: #f05545;
     color: whitesmoke;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    box-shadow: 5px 5px 5px #eee;
-    text-shadow:none;
 }
 
 body {
@@ -222,16 +215,6 @@ input[type="text"] {
 input[type="text"]:focus {
     border: 2px solid #b11925
 }
-
-/*input[type="submit"] {
-
-}*/
-
-/*input[type="submit"]:hover {
-    background: #aaa
-}*/
-
-
 
 h1 {
     text-align: center;

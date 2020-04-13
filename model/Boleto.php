@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Boleto
- *
- * @author julia
- */
 class Boleto {
 
     protected $byte;

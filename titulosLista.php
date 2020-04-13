@@ -13,8 +13,8 @@
                     if ($titulo->isVisibile()) {
                         $iten = array(
                             'numeroTitulo' => $titulo->getNrTitulo(),
-                            'parcela' => $titulo->getParcela(),
-                            'valorTitulo' => number_format($titulo->getVlrTitulo(), 2, ',', '.'),
+                            'parcela' => $titulo->getParcela() . '/' . $titulo->getTotalParcela(),
+                            'valorTitulo' => 'R$ ' . number_format($titulo->getVlrTitulo(), 2, ',', '.'),
                             'dataVencimento' => $titulo->getDtVencimento(),
                             'action' => $titulo->getAction()
                         );

@@ -2,11 +2,6 @@
 
 require_once ROOT_PATH . "\model\Boleto.php";
 
-/**
- * Description of Titulos
- *
- * @author julia
- */
 class Titulos {
 
     protected $ID;
@@ -42,7 +37,7 @@ class Titulos {
     protected $Portador;
     protected $Descricao_Portador;
     protected $boleto;
-    protected $visibile;
+    protected $visibile = true;
     protected $fileName;
     protected $action;
 
@@ -54,11 +49,12 @@ class Titulos {
                         $this->{'set' . $key}($value);
                     }
                 }
-                $this->setVisibile();
+                //$this->setVisibile();
                 $this->setBoleto();
                 $this->setAction();
             }
         } catch (Exception $e) {
+            
         }
     }
 
@@ -67,49 +63,45 @@ class Titulos {
     }
 
     function setAction() {
-        if ($this->getVlrTitulo() <= VALOR_PERMITIDO_BOLETO) {
-            $this->action = 'Ligar para cobrança ' . FONE_COBRANCA;
-        } else if (!$this->isFlgPermiteEmissaoBoleto()) {
-            $this->action = 'Opção de boleto nao permitida ' . FONE_COBRANCA;
-        } else if (empty ($this->getFileName())) {
-            $this->action = 'Não foi possível gerar o boleto';
-        } else {
-            $this->action = '<input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/>';
-            //$this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
+        switch ($this->getPortador()) {
+            case 999:
+                $this->action = AVISO_BOLETO_PORTADOR_999;
+                break;
+            case 299:
+                $this->action = AVISO_BOLETO_PORTADOR_299;
+                break;
+            case 799:
+                $this->action = AVISO_BOLETO_PORTADOR_799;
+                break;
+            case 1599:
+                $this->action = AVISO_BOLETO_PORTADOR_1599;
+                break;
+            case 1899:
+                $this->action = AVISO_BOLETO_PORTADOR_1899;
+                break;
+            case 1999:
+                $this->action = AVISO_BOLETO_PORTADOR_1999;
+                break;
+            case 1199:
+                $this->action = AVISO_BOLETO_PORTADOR_1199;
+                break;
+            default:
+                if ($this->getVlrTitulo() <= VALOR_MINIMO_BOLETO) {
+                    $this->action = AVISO_BOLETO_VALOR_MINIMO;
+                } else if (!$this->isFlgPermiteEmissaoBoleto()) {
+                    $this->action = AVISO_FLG_PERMITE_EMISSAO_BOLETO;
+                } else if (empty($this->getFileName())) {
+                    $this->action = '(ERRO) Não foi possível gerar o boleto';
+                } else {
+                    $this->action = '<input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/>';
+                    //$this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
+                }
+                break;
         }
     }
 
     function isVisibile() {
         return $this->visibile;
-    }
-
-    function setVisibile() {
-        switch ($this->getPortador()) {
-            case 999:
-                $this->visibile = false;
-                break;
-            case 299:
-                $this->visibile = false;
-                break;
-            case 799:
-                $this->visibile = false;
-                break;
-            case 1599:
-                $this->visibile = false;
-                break;
-            case 1899:
-                $this->visibile = false;
-                break;
-            case 1999:
-                $this->visibile = false;
-                break;
-            case 1199:
-                $this->visibile = false;
-                break;
-            default:
-                $this->visibile = true;
-                break;
-        }
     }
 
     function getBoleto() {
@@ -123,7 +115,7 @@ class Titulos {
     function setBoleto() {
         if ($this->isFlgPermiteEmissaoBoleto() &&
                 $this->isVisibile() &&
-                $this->getVlrTitulo() >= VALOR_PERMITIDO_BOLETO) {
+                $this->getVlrTitulo() >= VALOR_MINIMO_BOLETO) {
             $id = '/' . PHOENIX_EMPRESSA . '-'; // empressa cadastrada no phoenix(sempre 1)
             $id .= $this->getFilial() . '-'; // filial do titulo (retornado no primero metodo)
             $id .= $this->getCliente() . '-'; // codigo do cliente (retornado no primero metodo)

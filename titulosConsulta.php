@@ -23,4 +23,5 @@
         <br>
     </div>
 </div>
-<?php require_once './footer.phtml'; ?>
+<?php require_once './fileManager.php';
+      require_once './footer.phtml'; ?>
