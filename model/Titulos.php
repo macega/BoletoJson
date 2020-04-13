@@ -93,7 +93,7 @@ class Titulos {
                 } else if (empty($this->getFileName())) {
                     $this->action = '(ERRO) Não foi possível gerar o boleto';
                 } else {
-                    $this->action = '<input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/>';
+                    $this->action = '<p class="pDownload"><input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/></p>';
                     //$this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
                 }
                 break;

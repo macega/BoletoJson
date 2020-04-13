@@ -7,7 +7,7 @@
                     echo '(Teste) ';
                 }
                 ?>Digite seu CPF para visualizar títulos em aberto</h1>
-            <input type="text" name="cpf" id="cpf" data-mask="000.000.000-00" data-mask-selectonfocus="true" placeholder="Digite seu CPF" <?php
+            <input class="inputTextCPF" type="text" name="cpf" id="cpf" data-mask="000.000.000-00" data-mask-selectonfocus="true" placeholder="Digite seu CPF" <?php
             if (!PRODUCAO) {
                 echo 'value="017.709.672-14"';
             }
