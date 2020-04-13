@@ -22,6 +22,7 @@ class Cliente {
 
     var $cpf;
     var $titulos;
+    var $totalTitulos;
     protected $mensagen;
     protected $nomeCliente;
 
@@ -68,6 +69,10 @@ class Cliente {
     function getTitulos() {
         return $this->titulos;
     }
+    
+    function getTotalTitulos() {
+        return $this->totalTitulos;
+    }
 
     function setCpf($cpf) {
         $this->cpf = $cpf;
@@ -77,9 +82,13 @@ class Cliente {
         try {
             $result = Api::getJson(URL_CONSULTAR_TITULOS_CPF . '/' . $this->getCpf());
             if (isset($result) && !empty($result)) {
+                $soma = [0.0];
                 foreach ($result as $value) {
-                    $this->titulos[] = new Titulos($value);
+                    $titulo = new Titulos($value);
+                    $this->titulos[] = $titulo;
+                    $soma[] = $titulo->getVlrTitulo();
                 }
+                $this->totalTitulos = array_sum($soma);
             }
         } catch (apiTimeOutException $e) {
             $this->setMensagen($e);
