@@ -16,6 +16,7 @@ class InvalidCpfException extends \InvalidArgumentException implements Exception
     public function __toString() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
+
 }
 
 class Cliente {
@@ -23,8 +24,8 @@ class Cliente {
     var $cpf;
     var $titulos;
     var $totalTitulos;
-    protected $mensagen;
-    protected $nomeCliente;
+    protected $mensagen = 'Não foram encontrados registros para o cpf informado.';
+    protected $nomeCliente = '';
 
     /**
      * Cpf constructor.
@@ -37,13 +38,13 @@ class Cliente {
         }
         $this->setTitulos();
         if (empty($this->getTitulos()) || empty(current($this->getTitulos())->getNome_Cliente())) {
-            $this->setNomeCliente('');
-            $this->setMensagen('Não foram encontrados registros para o cpf informado.');
+//            $this->setNomeCliente('');
+//            $this->setMensagen('Não foram encontrados registros para o cpf informado.');
         } else {
             $this->setNomeCliente(current($this->getTitulos())->getNome_Cliente());
         }
     }
-    
+
     function setMensagen($mensagen) {
         $this->mensagen = $mensagen;
     }
@@ -51,7 +52,7 @@ class Cliente {
     function setNomeCliente($nomeCliente) {
         if (!empty($nomeCliente)) {
             $this->nomeCliente = $nomeCliente;
-        } 
+        }
     }
 
     function getNomeCliente() {
@@ -69,7 +70,7 @@ class Cliente {
     function getTitulos() {
         return $this->titulos;
     }
-    
+
     function getTotalTitulos() {
         return $this->totalTitulos;
     }
@@ -81,7 +82,9 @@ class Cliente {
     function setTitulos() {
         try {
             $result = Api::getJson(URL_CONSULTAR_TITULOS_CPF . '/' . $this->getCpf());
+            var_dump($result);
             if (isset($result) && !empty($result)) {
+
                 $soma = [0.0];
                 foreach ($result as $value) {
                     $titulo = new Titulos($value);
@@ -90,10 +93,12 @@ class Cliente {
                 }
                 $this->totalTitulos = array_sum($soma);
             }
-        } catch (apiTimeOutException $e) {
-            $this->setMensagen($e);
+//        } catch (apiTimeOutException $e) {
+//            $this->setMensagen($e->getMessage());
+//        } catch (apiMaximumConnectionsException $e) {
+//            $this->setMensagen($e->getMessage());
         } catch (Exception $e) {
-            $this->setMensagen($e);
+            $this->setMensagen($e->getMessage());
         }
     }
 

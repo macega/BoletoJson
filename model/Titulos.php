@@ -54,7 +54,7 @@ class Titulos {
                 $this->setAction();
             }
         } catch (Exception $e) {
-            
+            echo $e;
         }
     }
 
