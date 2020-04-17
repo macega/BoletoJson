@@ -25,6 +25,7 @@ define('CODIGO_BANCO', 104); // codigo do banco para os boletos (CAIXA ECONOMICA
 define('FONE_COBRANCA', '(69)3217-2628'); // telefone de cobrança 
 define('FONE_DUVIDAS', '(69)3217-2628'); // telefone para duvidas
 define('VALOR_MINIMO_BOLETO', 50.00); // valor minimo do boleto permitido
+define('MENSAGEN_ERRO_GERAL', 'Olá, tudo bem? temos um problema com o servidor entre em contato com a cobrança '.FONE_COBRANCA);
 
 /**
  * Aviso de titulos 

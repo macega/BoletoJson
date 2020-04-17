@@ -2,43 +2,12 @@
 
 require_once ROOT_PATH . '\inferface\ExceptionInterface.php';
 
-class apiTimeOutException extends \Exception implements ExceptionInterface {
-
-    // Redefine a exceção de forma que a mensagem não seja opcional
-    public function __construct($message, $code = 0, Exception $previous = null) {
-        // garante que tudo está corretamente inicializado
-        parent::__construct($message, $code, $previous);
-    }
-
-    // personaliza a apresentação do objeto como string
-    public function __toString() {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
-    }
-
-}
-
-// Maximum number of concurrent connections
-class apiMaximumConnectionsException extends \Exception implements ExceptionInterface {
-
-    // Redefine a exceção de forma que a mensagem não seja opcional
-    public function __construct($message, $code = 0, Exception $previous = null) {
-        // garante que tudo está corretamente inicializado
-        parent::__construct($message, $code, $previous);
-    }
-
-    // personaliza a apresentação do objeto como string
-    public function __toString() {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
-    }
-
-}
-
 class apiException extends \Exception implements ExceptionInterface {
 
     // Redefine a exceção de forma que a mensagem não seja opcional
     public function __construct($message, $code = 0, Exception $previous = null) {
         // garante que tudo está corretamente inicializado
-        parent::__construct($message, $code, $previous);
+        parent::__construct(MENSAGEN_ERRO_GERAL . '; '. PHP_EOL . $message, $code, $previous);
     }
 
     // personaliza a apresentação do objeto como string
@@ -61,16 +30,29 @@ class Api {
             $info = curl_getinfo($client);
             curl_close($client);
             if ($info['http_code'] === 0) {
-                throw new apiTimeOutException('o servidor encontrou um erro. Por favor, tente novamente mais tarde', 799);
+                throw new apiException('o servidor nao responde. Por favor, tente novamente mais tarde', 600);
             }
         } else {
             $info = curl_getinfo($client);
+            //echo var_dump($info);
             $httpCode = $info['http_code'];
             curl_close($client);
-            if ($httpCode == 500) {
-                throw new apiMaximumConnectionsException('Número máximo de conexões simultâneas excedido. Por favor, tente novamente mais tarde', 500);
-            } else {
-                return json_decode($response, true);
+
+            /**
+             * 
+             * Respostas de informação (100-199),
+             * Respostas de sucesso (200-299),
+             * Redirecionamentos (300-399)
+             * Erros do cliente (400-499)
+             * Erros do servidor (500-599).
+             */
+            switch ($httpCode) {
+                case 200:
+                    return json_decode($response, true);
+                case 500:
+                    throw new apiException('Erro interno do servidor. Por favor, tente novamente mais tarde', 500);
+                default:
+                    throw new apiException('O servidor encontrou um erro. Por favor, tente novamente mais tarde', 601);
             }
         }
         return '';

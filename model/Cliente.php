@@ -16,7 +16,6 @@ class InvalidCpfException extends \InvalidArgumentException implements Exception
     public function __toString() {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
-
 }
 
 class Cliente {
@@ -82,9 +81,7 @@ class Cliente {
     function setTitulos() {
         try {
             $result = Api::getJson(URL_CONSULTAR_TITULOS_CPF . '/' . $this->getCpf());
-            var_dump($result);
             if (isset($result) && !empty($result)) {
-
                 $soma = [0.0];
                 foreach ($result as $value) {
                     $titulo = new Titulos($value);
@@ -93,10 +90,6 @@ class Cliente {
                 }
                 $this->totalTitulos = array_sum($soma);
             }
-//        } catch (apiTimeOutException $e) {
-//            $this->setMensagen($e->getMessage());
-//        } catch (apiMaximumConnectionsException $e) {
-//            $this->setMensagen($e->getMessage());
         } catch (Exception $e) {
             $this->setMensagen($e->getMessage());
         }
