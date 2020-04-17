@@ -32,10 +32,11 @@ define('MENSAGEN_ERRO_GERAL', 'Olá, tudo bem? temos um problema com o servidor 
  */
 define('AVISO_BOLETO_VALOR_MINIMO', 'Valor minimo do boleto R$' . number_format(VALOR_MINIMO_BOLETO, 2, ',', '.') . '; Fone cobrança ' . FONE_COBRANCA);
 define('AVISO_FLG_PERMITE_EMISSAO_BOLETO', 'Opção de boleto nao permitido ' . FONE_COBRANCA);
-define('AVISO_BOLETO_PORTADOR_999', 'Aviso Portador 999');
-define('AVISO_BOLETO_PORTADOR_299', 'Aviso Portador 299');
-define('AVISO_BOLETO_PORTADOR_799', 'Aviso Portador 799');
-define('AVISO_BOLETO_PORTADOR_1599', 'Aviso Portador 1599');
-define('AVISO_BOLETO_PORTADOR_1899', 'Aviso Portador 1899');
-define('AVISO_BOLETO_PORTADOR_1999', 'Aviso Portador 1999');
-define('AVISO_BOLETO_PORTADOR_1199', 'Aviso Portador 1199');
+
+define('AVISO_BOLETO_PORTADOR_999', 'Título com SPC/PROTESTO - Ligar '. FONE_COBRANCA);
+define('AVISO_BOLETO_PORTADOR_299', 'Título com Assessoria Jurídica - Ligar '. FONE_COBRANCA);
+define('AVISO_BOLETO_PORTADOR_799', 'Título com Assessoria Ativa - Ligar '. FONE_COBRANCA);
+define('AVISO_BOLETO_PORTADOR_1599', 'Título com Assessoria Andrade e Bastos - Ligar 0800-025-2030');
+define('AVISO_BOLETO_PORTADOR_1899', 'Título com Assessoria Andrade e Bastos - Ligar 0800-025-2030');
+define('AVISO_BOLETO_PORTADOR_1999', 'Título com Assessoria Dra. Suliene Carvalho - Ligar 69 99265-7022');
+define('AVISO_BOLETO_PORTADOR_1199', 'Título com Assessoria Atual - Ligar '. FONE_COBRANCA);

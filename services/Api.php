@@ -7,7 +7,7 @@ class apiException extends \Exception implements ExceptionInterface {
     // Redefine a exceção de forma que a mensagem não seja opcional
     public function __construct($message, $code = 0, Exception $previous = null) {
         // garante que tudo está corretamente inicializado
-        parent::__construct(MENSAGEN_ERRO_GERAL . '; '. PHP_EOL . $message, $code, $previous);
+        parent::__construct(MENSAGEN_ERRO_GERAL . '; <br>' . $message, $code, $previous);
     }
 
     // personaliza a apresentação do objeto como string
