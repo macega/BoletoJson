@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of testePHPClass
- *
- * @author julia
- */
 class testePHPClass {
 
     private $ConsultaTitulosCPF;
@@ -26,7 +15,6 @@ class testePHPClass {
 
     public function __construct() {
         $this->pdfboleto = '';
-
         $this->ConsultaTitulosCPF = '[
             {
         "ID": "1-1-1007944899-81767799-1",

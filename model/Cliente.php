@@ -37,8 +37,6 @@ class Cliente {
         }
         $this->setTitulos();
         if (empty($this->getTitulos()) || empty(current($this->getTitulos())->getNome_Cliente())) {
-//            $this->setNomeCliente('');
-//            $this->setMensagen('Não foram encontrados registros para o cpf informado.');
         } else {
             $this->setNomeCliente(current($this->getTitulos())->getNome_Cliente());
         }

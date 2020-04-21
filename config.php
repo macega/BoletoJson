@@ -20,7 +20,6 @@ define('FOLDER_DOWNLOAD', 'download/');
 define('PHOENIX_EMPRESSA', '1'); // empressa cadastrada no phoenix( sempre 1 )
 define('PHOENIX_BOLETO', '299'); // configuracao do boleto cadastrado no phoenix
 define('CODIGO_BANCO', 104); // codigo do banco para os boletos (CAIXA ECONOMICA 104)
-
 define('FONE_COBRANCA', '(69)3217-2628'); // telefone de cobrança 
 define('FONE_DUVIDAS', '(69)3217-2628'); // telefone para duvidas
 define('VALOR_MINIMO_BOLETO', 50.00); // valor minimo do boleto permitido
@@ -31,7 +30,6 @@ define('MENSAGEN_ERRO_GERAL', 'Olá, tudo bem? temos um problema com o servidor 
  */
 define('AVISO_BOLETO_VALOR_MINIMO', 'Valor minimo do boleto R$' . number_format(VALOR_MINIMO_BOLETO, 2, ',', '.') . '; Fone cobrança ' . FONE_COBRANCA);
 define('AVISO_FLG_PERMITE_EMISSAO_BOLETO', 'Opção de boleto nao permitido ' . FONE_COBRANCA);
-
 define('AVISO_BOLETO_PORTADOR_999', 'Título com SPC/PROTESTO - Ligar '. FONE_COBRANCA);
 define('AVISO_BOLETO_PORTADOR_299', 'Título com Assessoria Jurídica - Ligar '. FONE_COBRANCA);
 define('AVISO_BOLETO_PORTADOR_799', 'Título com Assessoria Ativa - Ligar '. FONE_COBRANCA);

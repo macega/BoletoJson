@@ -1,7 +1,6 @@
 <?php
 include_once './config.php';
 
-// FUNCAO RESPONSAVEL POR ENVIAR HEADERS AO SERVIDOR
 function InputHeader($FILE) {
     header("Content-disposition: attachment; filename={$FILE}");
     header('Content-type: application/pdf');

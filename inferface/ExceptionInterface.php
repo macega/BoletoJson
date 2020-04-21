@@ -1,3 +1,5 @@
 <?php
 
-interface ExceptionInterface { }
+interface ExceptionInterface {
+    
+}

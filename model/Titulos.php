@@ -49,7 +49,6 @@ class Titulos {
                         $this->{'set' . $key}($value);
                     }
                 }
-                //$this->setVisibile();
                 $this->setBoleto();
                 $this->setAction();
             }
@@ -94,7 +93,6 @@ class Titulos {
                     $this->action = '(ERRO) Não foi possível gerar o boleto';
                 } else {
                     $this->action = '<p class="pDownload"><input class="buttonDownload" type="submit" value=" Gerar Boleto " name="buttonDownload" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '"/></p>';
-                    //$this->action = '<a href="#" onclick="window.location=' . "'" . 'download.php?pdf=1&fileName=' . $this->getFileName() . "'" . '">Gerar Boleto</a>';
                 }
                 break;
         }
