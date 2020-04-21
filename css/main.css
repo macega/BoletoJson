@@ -20,6 +20,10 @@
     .titulosTable tbody td {
         display: flex;
         flex-direction: column;
+        border: 1px solid black;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        padding: 5px;
     }
 
     .titulosTable tfoot {
@@ -80,8 +84,8 @@
     padding-top: 5px;
 }
 
-.pagination {
-    margin: 0px;
+.pagination>li>a:hover {
+    background: #aaa;
 }
 
 .headerTable {
@@ -192,6 +196,31 @@
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+}
+
+.divButtonNovaConsulta {
+    text-align: center;
+}
+
+.buttonNovaConsulta {
+    display: block;
+    background: #b11925;
+    width: 314px;
+    padding: 12px;
+    cursor: pointer;
+    color: #fff;
+    border: 0px;
+    margin: auto;
+    border-radius: 5px;
+    outline: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.buttonNovaConsulta:hover {
+    background: #aaa
 }
 
 .buttonConsulta {
