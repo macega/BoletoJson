@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_PATH . '\inferface\ExceptionInterface.php';
+require_once ROOT_PATH . '\services\testePHPClass.php';
 
 class apiException extends \Exception implements ExceptionInterface {
 
@@ -17,6 +18,14 @@ class apiException extends \Exception implements ExceptionInterface {
 
 }
 
+/**
+ * 
+ * Respostas de informação (100-199),
+ * Respostas de sucesso (200-299),
+ * Redirecionamentos (300-399)
+ * Erros do cliente (400-499)
+ * Erros do servidor (500-599).
+ */
 class Api {
 
     public static function getJson($url) {
@@ -25,34 +34,32 @@ class Api {
         curl_setopt($client, CURLOPT_TIMEOUT, 12);
         curl_setopt($client, CURLOPT_CONNECTTIMEOUT, 77);
         $response = curl_exec($client);
-
         if ($response === false) {
             $info = curl_getinfo($client);
             curl_close($client);
             if ($info['http_code'] === 0) {
-                throw new apiException('o servidor nao responde. Por favor, tente novamente mais tarde', 600);
+                throw new apiException('O servidor nao responde. Por favor, tente novamente mais tarde', 600);
             }
         } else {
             $info = curl_getinfo($client);
             //echo var_dump($info);
             $httpCode = $info['http_code'];
             curl_close($client);
-
-            /**
-             * 
-             * Respostas de informação (100-199),
-             * Respostas de sucesso (200-299),
-             * Redirecionamentos (300-399)
-             * Erros do cliente (400-499)
-             * Erros do servidor (500-599).
-             */
             switch ($httpCode) {
                 case 200:
                     return json_decode($response, true);
                 case 500:
-                    throw new apiException('Erro interno do servidor. Por favor, tente novamente mais tarde', 500);
+                    if (PRODUCAO) {
+                        throw new apiException($response, 500);
+                    } else {
+                        $teste = new testePHPClass();
+                        return json_decode(
+                                substr($url, 64, 18) == 'ConsultaTitulosCPF' ?
+                                $teste->getConsultaTitulosCPF() :
+                                $teste->getPdfboleto(), true);
+                    }
                 default:
-                    throw new apiException('O servidor encontrou um erro. Por favor, tente novamente mais tarde', 601);
+                    throw new apiException('O servidor nao responde. Por favor, tente novamente mais tarde', 601);
             }
         }
         return '';

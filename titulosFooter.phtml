@@ -2,8 +2,33 @@
     <tr>
         <th colspan="2">Total Titulos</th>
         <td colspan="1"><?php echo 'R$ ' . number_format($cliente->totalTitulos, 2, ',', '.'); ?></td>
+        <td colspan="2"><div class="titulosFooterDivNav">
+                <nav>
+                    <ul class="pagination">
+                        <li>
+                            <a href="titulosLista.php?<?php echo 'pagina=0&cpf=' . $cpf ?>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <?php
+                        for ($i = 0; $i < $num_paginas; $i++) {
+                            $estilo = "";
+                            if ($pagina == $i)
+                                $estilo = "class=\"active\"";
+                            ?>
+                            <li <?php echo $estilo; ?>><a href="titulosLista.php?<?php echo 'pagina=' . $i . '&cpf=' . $cpf; ?>"><?php echo $i + 1; ?></a></li>
+                        <?php } ?>
+                        <li>
+                            <a href="titulosLista.php?<?php echo 'pagina=' . ($num_paginas - 1) . '&cpf=' . $cpf; ?>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div></td>
     </tr>
 </tfoot>
 </tbody>
 </table>
+
 <h1>* Títulos com mais de 60 dias de atraso, ligar para Cobrança <?php echo FONE_COBRANCA; ?></h1>

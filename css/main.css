@@ -75,6 +75,15 @@
     }
 }
 
+.titulosFooterDivNav {
+    text-align: center;
+    padding-top: 5px;
+}
+
+.pagination {
+    margin: 0px;
+}
+
 .headerTable {
     width: 100%;
     background: #fff;
