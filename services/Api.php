@@ -29,40 +29,48 @@ class apiException extends \Exception implements ExceptionInterface {
 class Api {
 
     public static function getJson($url) {
-        $client = curl_init($url);
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($client, CURLOPT_TIMEOUT, 12);
-        curl_setopt($client, CURLOPT_CONNECTTIMEOUT, 77);
-        $response = curl_exec($client);
-        if ($response === false) {
-            $info = curl_getinfo($client);
-            curl_close($client);
-            if ($info['http_code'] === 0) {
-                throw new apiException('O servidor nao responde. Por favor, tente novamente mais tarde', 600);
-            }
-        } else {
-            $info = curl_getinfo($client);
-            //echo var_dump($info);
-            $httpCode = $info['http_code'];
-            curl_close($client);
-            switch ($httpCode) {
-                case 200:
-                    return json_decode($response, true);
-                case 500:
-                    if (PRODUCAO) {
-                        throw new apiException($response, 500);
-                    } else {
-                        $teste = new testePHPClass();
-                        return json_decode(
-                                substr($url, 64, 18) == 'ConsultaTitulosCPF' ?
-                                $teste->getConsultaTitulosCPF() :
-                                $teste->getPdfboleto(), true);
-                    }
-                default:
-                    throw new apiException('O servidor nao responde. Por favor, tente novamente mais tarde', 601);
-            }
+
+        $curl = curl_init($url);
+
+        $header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
+        $header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+        $header[] = "Cache-Control: max-age=0";
+        $header[] = "Connection: keep-alive";
+        $header[] = "Keep-Alive: 600";
+        $header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 22);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 77);
+
+        $response = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+        $httpCode = $info['http_code'];
+
+        switch ($httpCode) {
+            case 0:
+                throw new apiException('O servidor não responde. Por favor, tente novamente mais tarde', 0);
+            case 200:
+                return json_decode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            case 500:
+                if (PRODUCAO) {
+                    throw new apiException($response, 500);
+                } else {
+                    $teste = new testePHPClass();
+                    return json_decode(
+                            substr($url, 64, 18) == 'ConsultaTitulosCPF' ?
+                            $teste->getConsultaTitulosCPF() :
+                            $teste->getPdfboleto(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+                }
+            case 401:
+                return NULL;
+            case 400:
+                return NULL;
+            default:
+                throw new apiException($response, $httpCode);
         }
-        return '';
     }
 
 }
